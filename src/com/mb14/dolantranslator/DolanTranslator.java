@@ -51,9 +51,11 @@ public class DolanTranslator {
 			String jsonString = writer.toString();
 			try {
 				json = new JSONObject(jsonString);
+				
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			
 					
 		}
 
@@ -70,7 +72,9 @@ public class DolanTranslator {
 		            String replace = dolan.getString(rand.nextInt(dolan.length()));
 		            Pattern pat = Pattern.compile("\\b" + key + "\\b", Pattern.CASE_INSENSITIVE);
 					Matcher mat = pat.matcher(finalString);
+				
 					finalString = mat.replaceAll(replace);
+					
 		        } catch (JSONException e) {
 		        	e.printStackTrace();
 		        }

@@ -1,22 +1,29 @@
 package com.mb14.dolantranslator;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class MainActivity extends SherlockActivity {
 	DolanTranslator translator;
 	EditText englishText, dolanText;
+	ActionBar actionbar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		String fontPath = "fonts/child.ttf";
+		actionbar = getSupportActionBar();
 		 Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 		 TextView dolanTitle = (TextView) findViewById(R.id.dolan_title);
 		 TextView englishTitle = (TextView) findViewById(R.id.english_title);
@@ -42,11 +49,16 @@ public class MainActivity extends Activity {
 		    });
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
+	 @Override
+	 public boolean onCreateOptionsMenu(Menu menu) {
+		    MenuInflater inflater = getSupportMenuInflater();
+		    inflater.inflate(R.menu.main, menu);
+		    return true;
+		}
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+		   Intent i = new Intent(MainActivity.this,AboutActivity.class);
+	       startActivity(i);
+		 	return true;
+	    }
 }
