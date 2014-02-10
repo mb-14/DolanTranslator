@@ -31,18 +31,40 @@
         android:inputType="textMultiLine" >
     </EditText>
 
-    <TextView
-         android:textSize="25sp"
-         android:textColor="#ff1100"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:id="@+id/dolan_title"
-        android:layout_width="wrap_content"
+ 
+
+
+
+    <RelativeLayout
+       	android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
+        android:orientation="horizontal" >
+        
+            <TextView
+                android:layout_alignParentLeft="true"
+         android:textSize="25sp"
+         android:layout_marginTop="7dp"
+         android:textColor="#ff1100"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/dolan_title"
         android:text="Dolan:"
          android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <ImageButton
+                android:layout_alignParentRight="true"
+                android:id="@+id/copy_button"
+                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/copy_icon" />
+   
+    </RelativeLayout>
+   
      <EditText
          
         android:id="@+id/dolan_text"

@@ -910,8 +910,9 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int editbox=0x7f020070;
-        public static final int ic_launcher=0x7f020071;
+        public static final int copy_icon=0x7f020070;
+        public static final int editbox=0x7f020071;
+        public static final int ic_launcher=0x7f020072;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050020;
@@ -953,9 +954,10 @@ containing a value of this type.
         public static final int abs__textButton=0x7f050013;
         public static final int abs__title=0x7f05001b;
         public static final int abs__up=0x7f05000b;
-        public static final int action_setting=0x7f05003b;
+        public static final int action_setting=0x7f05003c;
+        public static final int copy_button=0x7f05003a;
         public static final int disableHome=0x7f050009;
-        public static final int dolan_text=0x7f05003a;
+        public static final int dolan_text=0x7f05003b;
         public static final int dolan_title=0x7f050039;
         public static final int edit_query=0x7f050026;
         public static final int english_text=0x7f050038;

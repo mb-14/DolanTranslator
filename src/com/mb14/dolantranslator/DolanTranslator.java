@@ -8,26 +8,28 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.widget.EditText;
 
-import android.content.Context;
-import android.util.Log;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-public class DolanTranslator {
+public class DolanTranslator extends AsyncTask<String, String, String>{
 
-		
-	    private JSONObject json;
-		
-		public DolanTranslator(Context context) 
+	    HashMap<String, String> dictionary;
+	    EditText dolanText;
+	    String resultText;
+		public DolanTranslator(Activity activity) 
 		{
-			InputStream is = context.getResources().openRawResource(R.raw.dictionary);
+			dolanText = (EditText) activity.findViewById(R.id.dolan_text);
+			InputStream is =activity.getResources().openRawResource(R.raw.dictionary);
 			Writer writer = new StringWriter();
 			char[] buffer = new char[1024];
 			try {
@@ -49,12 +51,15 @@ public class DolanTranslator {
 			}
 			
 			String jsonString = writer.toString();
-			try {
-				json = new JSONObject(jsonString);
-				
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+
+				JsonElement json = new JsonParser().parse(jsonString);
+				JsonObject obj = json.getAsJsonObject();
+		dictionary = new HashMap<String, String>();				
+		for(Entry<String, JsonElement> entry : obj.entrySet()) {
+         dictionary.put(entry.getKey(), entry.getValue().getAsString());
+			
+			
+		}
 			
 					
 		}
@@ -63,28 +68,30 @@ public class DolanTranslator {
 		public String translate(String s)
 		{   
 			
-			Random rand = new Random();
 			String finalString = s;
-			for(Iterator<String> iter = json.keys();iter.hasNext();) {
-			    String key = iter.next();
-			    try {
-		            JSONArray dolan = json.getJSONArray(key);
-		            String replace = dolan.getString(rand.nextInt(dolan.length()));
-		            Pattern pat = Pattern.compile("\\b" + key + "\\b", Pattern.CASE_INSENSITIVE);
-					Matcher mat = pat.matcher(finalString);
-				
-					finalString = mat.replaceAll(replace);
-					
-		        } catch (JSONException e) {
-		        	e.printStackTrace();
-		        }
-		
+			
+			for(Entry<String, String> entry : dictionary.entrySet()) {
+				String replace = entry.getValue();
+				Pattern pat = Pattern.compile("\\b" + entry.getKey() + "\\b", Pattern.CASE_INSENSITIVE);
+				Matcher mat = pat.matcher(finalString);
+				finalString = mat.replaceAll(replace);
 			}
 						
 					
 			return finalString;
 		}
-		
+
+
+		@Override
+		protected String doInBackground(String... str) {
+			resultText = translate(str[0]);
+			return null;
+		}
+		  @Override
+	        protected void onPostExecute(String result) {
+			   super.onPostExecute(result);
+	            dolanText.setText(resultText);
+	        }
 	 
 }
 
